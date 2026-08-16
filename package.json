@@ -1,6 +1,6 @@
 {
   "name": "dsh-artifacts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Claude-Artifacts-style rendering for DeepSeek Harness: turn agent output (Markdown + JSON) into beautiful, shareable, self-contained HTML cards, dashboards, galleries, and documents. Zero runtime dependencies.",
   "type": "module",
   "bin": {
