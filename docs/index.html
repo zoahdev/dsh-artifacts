@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>dsh-artifacts — live demo</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #0b1220; color: #e8eefc;
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    header {
+      padding: 40px 24px 24px; text-align: center; border-bottom: 1px solid #22304f;
+    }
+    header h1 { margin: 0; font-size: clamp(28px, 5vw, 44px); letter-spacing: -0.02em; }
+    header p { color: #9db2d8; margin: 10px 0 20px; }
+    nav a {
+      display: inline-block; margin: 0 8px; padding: 9px 16px; border-radius: 999px;
+      background: #111b2f; border: 1px solid #22304f; color: #e8eefc; text-decoration: none;
+    }
+    nav a:hover { border-color: #3d8bff; }
+    main { max-width: 1100px; margin: 0 auto; padding: 28px 20px 64px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+    figure { margin: 0; }
+    iframe {
+      width: 100%; height: 680px; border: 1px solid #22304f; border-radius: 14px; background: #0d1117;
+    }
+    figcaption { text-align: center; color: #9db2d8; padding: 10px 0 0; }
+    .source {
+      text-align: center; margin-top: 28px; color: #9db2d8;
+    }
+    .source a { color: #3d8bff; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>dsh-artifacts</h1>
+    <p>Two of the templates, rendered live from the same inputs in the repo.</p>
+    <nav>
+      <a href="dashboard.html">Open dashboard</a>
+      <a href="doc.html">Open document</a>
+    </nav>
+  </header>
+  <main>
+    <div class="grid">
+      <figure>
+        <iframe src="dashboard.html" title="Dashboard demo"></iframe>
+        <figcaption>dashboard / brand</figcaption>
+      </figure>
+      <figure>
+        <iframe src="doc.html" title="Document demo"></iframe>
+        <figcaption>doc / dark</figcaption>
+      </figure>
+    </div>
+    <p class="source">Source: <a href="https://github.com/zoahdev/dsh-artifacts">github.com/zoahdev/dsh-artifacts</a></p>
+  </main>
+</body>
+</html>

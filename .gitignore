@@ -1,0 +1,8 @@
+node_modules
+lib
+*.tgz
+*.log
+coverage
+.DS_Store
+demo/*.html
+!demo/demo.html

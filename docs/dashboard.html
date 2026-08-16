@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" data-theme="brand">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="dsh-artifacts">
+<title>Agent fleet dashboard</title>
+<style>
+:root { color-scheme: light dark; }
+*, *::before, *::after { box-sizing: border-box; }
+html[data-theme="light"] {
+  --bg: #f7f7f8; --surface: #ffffff; --ink: #1c1c1f; --muted: #6b7280;
+  --line: #e4e4e7; --accent: #1f6feb; --accent-ink: #ffffff; --code-bg: #f0f0f2;
+}
+html[data-theme="dark"] {
+  --bg: #0d1117; --surface: #161b22; --ink: #e6edf3; --muted: #8b949e;
+  --line: #30363d; --accent: #388bfd; --accent-ink: #ffffff; --code-bg: #0b0f14;
+}
+html[data-theme="paper"] {
+  --bg: #f4efe6; --surface: #fdfbf6; --ink: #26221a; --muted: #7a7465;
+  --line: #e2d9c8; --accent: #a0522d; --accent-ink: #fffaf2; --code-bg: #efe6d6;
+  font-family: Georgia, "Times New Roman", serif;
+}
+html[data-theme="terminal"] {
+  --bg: #0a0f0a; --surface: #101710; --ink: #b8f0b0; --muted: #5f7f5f;
+  --line: #1f3a1f; --accent: #39ff5f; --accent-ink: #041404; --code-bg: #041006;
+  font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+html[data-theme="brand"] {
+  --bg: #0b1220; --surface: #111b2f; --ink: #e8eefc; --muted: #9db2d8;
+  --line: #22304f; --accent: #3d8bff; --accent-ink: #ffffff; --code-bg: #0a1020;
+}
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 16px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+.shell { max-width: 900px; margin: 0 auto; padding: 48px 24px 64px; }
+header.artifact-head { margin-bottom: 28px; border-bottom: 1px solid var(--line); padding-bottom: 20px; }
+header.artifact-head .eyebrow { text-transform: uppercase; letter-spacing: .14em; font-size: 12px; color: var(--accent); font-weight: 700; }
+header.artifact-head h1 { margin: 6px 0 8px; font-size: clamp(28px, 5vw, 44px); line-height: 1.12; letter-spacing: -0.02em; }
+header.artifact-head .subtitle { color: var(--muted); margin: 0; }
+.doc h2, .doc h3, .doc h4 { margin-top: 1.6em; line-height: 1.25; }
+.doc h2 { font-size: 26px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.doc h3 { font-size: 20px; }
+.doc p { margin: 1em 0; }
+.doc a { color: var(--accent); }
+.doc code { background: var(--code-bg); padding: .15em .4em; border-radius: 6px; font-size: .9em; font-family: ui-monospace, Consolas, monospace; }
+.doc pre { background: var(--code-bg); border: 1px solid var(--line); border-radius: 12px; padding: 16px; overflow-x: auto; }
+.doc pre code { background: transparent; padding: 0; }
+.doc blockquote { border-left: 3px solid var(--accent); margin: 1em 0; padding: .4em 1em; color: var(--muted); background: var(--surface); border-radius: 0 10px 10px 0; }
+.doc hr { border: 0; border-top: 1px solid var(--line); margin: 2em 0; }
+.doc img { max-width: 100%; border-radius: 12px; }
+.doc ul, .doc ol { padding-left: 1.4em; }
+.doc li { margin: .35em 0; }
+.table-wrap { overflow-x: auto; margin: 1.2em 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 480px; }
+th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 700; color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+tr:last-child td { border-bottom: 0; }
+.dashboard .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 8px 0 20px; }
+.metric { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.metric-label { color: var(--muted); font-size: 13px; }
+.metric-value { font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+.metric-value .delta { font-size: 13px; margin-left: 8px; font-weight: 600; color: var(--accent); }
+.bars { margin: 20px 0; }
+.bar-row { display: grid; grid-template-columns: 140px 1fr 60px; gap: 12px; align-items: center; margin: 10px 0; }
+.bar-label { color: var(--muted); font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bar-track { height: 12px; background: var(--code-bg); border-radius: 999px; overflow: hidden; }
+.bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent), color-mix(in srgb, var(--accent) 60%, white)); border-radius: 999px; }
+.bar-value { text-align: right; font-variant-numeric: tabular-nums; font-size: 14px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; margin: 8px 0 20px; }
+.gallery-card { margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+.gallery-media { aspect-ratio: 4/3; background: var(--code-bg); }
+.gallery-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.gallery-media.empty { display: grid; place-items: center; font-size: 42px; font-weight: 800; color: var(--accent); }
+.gallery-card figcaption { padding: 12px 14px; }
+.gallery-title { font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.gallery-tag { font-size: 11px; font-weight: 600; color: var(--accent-ink); background: var(--accent); padding: 2px 8px; border-radius: 999px; }
+.gallery-desc { color: var(--muted); margin: 6px 0 0; font-size: 14px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: clamp(24px, 5vw, 44px); box-shadow: 0 12px 40px color-mix(in srgb, var(--ink) 8%, transparent); }
+.card-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }
+.card-head h1 { margin: 0; }
+.card-badge { font-size: 12px; font-weight: 700; color: var(--accent-ink); background: var(--accent); padding: 4px 10px; border-radius: 999px; }
+footer.artifact-foot { margin-top: 36px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+@media (max-width: 560px) { .bar-row { grid-template-columns: 96px 1fr 48px; } .shell { padding: 28px 16px 48px; } }
+@media print { body { background: #fff; color: #000; } .shell { max-width: none; } }
+</style>
+</head>
+<body>
+<main class="shell">
+<header class="artifact-head"><div class="eyebrow">DeepSeek Harness artifact</div><h1>Agent fleet dashboard</h1><p class="subtitle">dsh-artifacts live demo</p></header>
+<div class="dashboard"><div class="metrics"><div class="metric"><div class="metric-label">Sessions</div><div class="metric-value num">128<span class="delta">+12</span></div></div><div class="metric"><div class="metric-label">Tool calls</div><div class="metric-value num">3412</div></div><div class="metric"><div class="metric-label">Error rate</div><div class="metric-value str">0.4%</div></div><div class="metric"><div class="metric-label">CI</div><div class="metric-value bool yes">true</div></div></div><div class="bars"><div class="bar-row"><div class="bar-label">Monday</div><div class="bar-track"><div class="bar-fill" style="width:36%"></div></div><div class="bar-value">8</div></div><div class="bar-row"><div class="bar-label">Tuesday</div><div class="bar-track"><div class="bar-fill" style="width:64%"></div></div><div class="bar-value">14</div></div><div class="bar-row"><div class="bar-label">Wednesday</div><div class="bar-track"><div class="bar-fill" style="width:50%"></div></div><div class="bar-value">11</div></div><div class="bar-row"><div class="bar-label">Thursday</div><div class="bar-track"><div class="bar-fill" style="width:100%"></div></div><div class="bar-value">22</div></div><div class="bar-row"><div class="bar-label">Friday</div><div class="bar-track"><div class="bar-fill" style="width:82%"></div></div><div class="bar-value">18</div></div></div><div class="table-wrap"><table><thead><tr><th>tool</th><th>calls</th><th>median_ms</th></tr></thead><tbody><tr><td>read_file</td><td>412</td><td>38</td></tr><tr><td>write_file</td><td>198</td><td>61</td></tr><tr><td>bash</td><td>96</td><td>320</td></tr></tbody></table></div></div>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "metrics": [
+    { "label": "Sessions", "value": 128, "delta": "+12" },
+    { "label": "Tool calls", "value": 3412 },
+    { "label": "Error rate", "value": "0.4%" },
+    { "label": "CI", "value": true }
+  ],
+  "bars": [
+    { "label": "Monday", "value": 8 },
+    { "label": "Tuesday", "value": 14 },
+    { "label": "Wednesday", "value": 11 },
+    { "label": "Thursday", "value": 22 },
+    { "label": "Friday", "value": 18 }
+  ],
+  "columns": ["tool", "calls", "median_ms"],
+  "rows": [
+    ["read_file", "412", "38"],
+    ["write_file", "198", "61"],
+    ["bash", "96", "320"]
+  ]
+}
