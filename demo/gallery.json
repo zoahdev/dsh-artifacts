@@ -1,0 +1,10 @@
+{
+  "items": [
+    { "title": "Session replay", "image": "https://picsum.photos/seed/replay/400/300", "description": "Time-travel debugger timeline.", "tag": "tool" },
+    { "title": "Fleet dashboard", "image": "https://picsum.photos/seed/dash/400/300", "description": "Aggregate agent observability.", "tag": "visual" },
+    { "title": "Plugin market", "image": "https://picsum.photos/seed/market/400/300", "description": "Steam-style one-click installs.", "tag": "infra" },
+    { "title": "Supply-chain guard", "image": "https://picsum.photos/seed/guard/400/300", "description": "Pre-install poison scanner.", "tag": "security" },
+    { "title": "Rule evolution", "image": "https://picsum.photos/seed/evolve/400/300", "description": "Verification-driven self-learning.", "tag": "agent" },
+    { "title": "Composition map", "image": "https://picsum.photos/seed/compose/400/300", "description": "Everything-is-a-plugin, made visible.", "tag": "visual" }
+  ]
+}

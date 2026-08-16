@@ -60,6 +60,19 @@ disk and hand you back the path.
 | `dashboard` | Metrics, bars, and tables from JSON |
 | `gallery` | Image / item grids |
 
+All four templates, rendered from the same demo inputs in this repo:
+
+<table>
+  <tr>
+    <td><img src="demo/preview-doc.png" alt="doc"></td>
+    <td><img src="demo/preview-dashboard.png" alt="dashboard"></td>
+  </tr>
+  <tr>
+    <td><img src="demo/preview-card.png" alt="card"></td>
+    <td><img src="demo/preview-gallery.png" alt="gallery"></td>
+  </tr>
+</table>
+
 ## Themes
 
 | Theme | Vibe |
