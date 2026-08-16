@@ -38,5 +38,27 @@ jobs:
       - name: Packaged integration + real tool invocation
         run: node scripts/integration-test.mjs
 
-      - name: DSH boot smoke test (fresh profile + real web boot)
+  dsh-smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Pack
+        run: pnpm pack
+
+      - name: Fresh DSH profile install + boot smoke
         run: bash scripts/dsh-smoke.sh
