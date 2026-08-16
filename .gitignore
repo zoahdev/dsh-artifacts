@@ -6,3 +6,4 @@ coverage
 .DS_Store
 demo/*.html
 !demo/demo.html
+demo-site/

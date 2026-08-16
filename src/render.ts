@@ -56,6 +56,8 @@ function safeHref(raw: string): string | null {
   const url = raw.trim()
   if (/^javascript:/i.test(url) || /^data:/i.test(url) || /^vbscript:/i.test(url)) return null
   if (SAFE_SCHEMES.test(url)) return escapeHtml(url)
+  // Relative paths (no scheme before the first slash) are fine.
+  if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(url)) return escapeHtml(url)
   return null
 }
 

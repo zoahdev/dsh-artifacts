@@ -17,6 +17,10 @@
       "types": "./lib/types/render.d.ts",
       "default": "./lib/render.js"
     },
+    "./vault": {
+      "types": "./lib/types/vault.d.ts",
+      "default": "./lib/vault.js"
+    },
     "./package.json": "./package.json"
   },
   "files": [

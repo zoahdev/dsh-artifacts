@@ -132,6 +132,21 @@ dsh-artifacts --data gallery.json --template gallery --theme light
 { "items": [ { "title": "A", "image": "https://…/a.png", "tag": "new" } ] }
 ```
 
+## Vault export (Obsidian / VS Code / any folder of Markdown)
+
+`dsh-artifacts` is not DSH-only. Point it at any folder of `.md` notes — an
+Obsidian vault, a VS Code notes directory, blog drafts, or docs — and it
+renders one self-contained HTML page per note plus a linked `index.html`:
+
+```sh
+dsh-artifacts vault ./my-notes --theme paper --out site
+# site/index.html + site/<note>.html
+```
+
+The first `# heading` of each note becomes its title; the first meaningful line
+becomes the index excerpt. Ignored folders include `node_modules`, `.git`,
+`.obsidian`, and `.trash`. Use `--no-recursive` for the top level only.
+
 ## In-harness tool
 
 `artifact_render` accepts:
@@ -281,6 +296,15 @@ pnpm dlx @deepseek-ai/dsh plugin --profile web add dsh-artifacts
 | `paper` | 暖色编辑风衬线体 |
 | `terminal` | 绿字黑底等宽 |
 | `brand` | DeepSeek 蓝 |
+
+## Vault 导出（Obsidian / VS Code / 任意 Markdown 文件夹）
+
+不只用于 DSH。指向任意 `.md` 笔记目录（Obsidian 库、VS Code 笔记、博客草稿、文档），
+每条笔记生成一个自包含 HTML 页，外加带链接的 `index.html`：
+
+```sh
+dsh-artifacts vault ./my-notes --theme paper --out site
+```
 
 ## 已验证
 

@@ -6,12 +6,14 @@
  *   dsh-artifacts --data metrics.json --template dashboard --theme brand
  *   cat notes.md | dsh-artifacts --stdin --title "From stdin"
  *   dsh-artifacts notes.md --serve 8080
+ *   dsh-artifacts vault notes --theme paper --out site
  */
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 import { createServer } from 'node:http'
 import { renderArtifact, TEMPLATES, THEMES } from '../lib/render.js'
+import { collectNotes, renderVault } from '../lib/vault.js'
 
 const HELP = `dsh-artifacts — render Markdown + JSON into a styled HTML artifact
 
@@ -34,6 +36,7 @@ Examples:
   dsh-artifacts notes.md --title "Notes" --theme dark
   dsh-artifacts --data metrics.json --template dashboard --theme brand
   dsh-artifacts notes.md --serve 8080
+  dsh-artifacts vault notes --theme paper --out site
 `
 
 function argValue(args, index, name) {
@@ -149,6 +152,62 @@ function writeOut(out, html) {
   writeFileSync(out, html, 'utf8')
 }
 
+function runVault(argv) {
+  const opts = {
+    theme: 'paper',
+    out: 'vault-site',
+    title: 'Notes',
+    footer: undefined,
+    recursive: true,
+    input: undefined,
+  }
+  const positional = []
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i]
+    if (arg === '--theme') {
+      opts.theme = argValue(argv, i, '--theme')
+      i++
+    } else if (arg === '--out') {
+      opts.out = argValue(argv, i, '--out')
+      i++
+    } else if (arg === '--title') {
+      opts.title = argValue(argv, i, '--title')
+      i++
+    } else if (arg === '--footer') {
+      opts.footer = argValue(argv, i, '--footer')
+      i++
+    } else if (arg === '--no-recursive') {
+      opts.recursive = false
+    } else if (!arg.startsWith('--')) {
+      positional.push(arg)
+    } else {
+      throw new Error(`dsh-artifacts: unknown option ${arg}`)
+    }
+  }
+  if (positional.length !== 1) throw new Error('dsh-artifacts vault: provide exactly one source directory')
+  opts.input = positional[0]
+  if (!THEMES.includes(opts.theme)) throw new Error(`dsh-artifacts: unknown theme "${opts.theme}"`)
+
+  const notes = collectNotes(resolve(opts.input), { recursive: opts.recursive })
+  const files = renderVault(notes, {
+    theme: opts.theme,
+    title: opts.title,
+    indexTitle: opts.title,
+    footer: opts.footer,
+  })
+
+  const outRoot = resolve(opts.out)
+  mkdirSync(outRoot, { recursive: true })
+  for (const [rel, html] of Object.entries(files)) {
+    const target = join(outRoot, rel)
+    mkdirSync(dirname(target), { recursive: true })
+    writeFileSync(target, html, 'utf8')
+  }
+  process.stdout.write(
+    `vault exported: ${notes.length} note(s) -> ${outRoot} (index.html + ${Object.keys(files).length - 1} page(s), ${opts.theme})\n`,
+  )
+}
+
 async function serve(opts, out) {
   const port = opts.serve ?? 8080
   const server = createServer((_req, res) => {
@@ -170,7 +229,12 @@ async function serve(opts, out) {
 }
 
 try {
-  const opts = parseArgs(process.argv.slice(2))
+  const argv = process.argv.slice(2)
+  if (argv[0] === 'vault') {
+    runVault(argv.slice(1))
+    process.exit(0)
+  }
+  const opts = parseArgs(argv)
   if (opts.serve !== null) {
     await serve(opts, opts.out)
     await new Promise(() => {})
