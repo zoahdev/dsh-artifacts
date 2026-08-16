@@ -167,6 +167,10 @@ const { html } = renderArtifact({
 load the packed bundle → register `artifact_render` via `apply()` →
 execute the real handler → assert a real HTML file + rendered output`.
 
+In a second step, CI installs the packed plugin into a fresh `DSH_HOME`
+profile, verifies it appears in `--dump-config`, boots the real `dsh web`
+server, and asserts HTTP 200.
+
 The smoke test also installs against an old `@deepseek-ai/dsh-tools` RC and
 asserts the runtime guard rejects it loudly (instead of failing later).
 

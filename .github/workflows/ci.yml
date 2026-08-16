@@ -37,3 +37,6 @@ jobs:
 
       - name: Packaged integration + real tool invocation
         run: node scripts/integration-test.mjs
+
+      - name: DSH boot smoke test (fresh profile + real web boot)
+        run: bash scripts/dsh-smoke.sh
