@@ -248,6 +248,17 @@ verified.
 - [x] packaged plugin loads and `artifact_render` invokes successfully
 - [x] bilingual README
 
+## Releases
+
+Push a `v*` tag and GitHub Actions publishes the package to npm automatically:
+
+```sh
+npm version patch && git push --tags
+```
+
+The `NPM_TOKEN` repository secret is a granular access token scoped to
+`dsh-artifacts` (read + write, 2FA bypass for automation).
+
 ---
 
 # 中文
