@@ -7,6 +7,7 @@
 
 [![CI](https://github.com/zoahdev/dsh-artifacts/actions/workflows/ci.yml/badge.svg)](https://github.com/zoahdev/dsh-artifacts/actions)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/dsh-artifacts)](https://www.npmjs.com/package/dsh-artifacts)
 
 English | [中文](#中文)
 
@@ -18,6 +19,8 @@ rendered as a polished, dependency-free HTML artifact you can open from disk,
 attach to an email, or drop on any static host.
 
 **Live demo:** https://zoahdev.github.io/dsh-artifacts/
+
+**Published on npm:** [`dsh-artifacts`](https://www.npmjs.com/package/dsh-artifacts)
 
 ## Why
 
@@ -33,6 +36,7 @@ attach to an email, or drop on any static host.
 ```sh
 # As a standalone CLI
 pnpm add -g dsh-artifacts
+# or: npm install -g dsh-artifacts
 dsh-artifacts notes.md --title "Release notes" --theme dark --out notes.html
 dsh-artifacts notes.md --serve 8080          # live preview
 
